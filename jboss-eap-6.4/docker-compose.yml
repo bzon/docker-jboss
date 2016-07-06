@@ -1,13 +1,11 @@
 jboss:
-  image: bzon/jboss-eap:6.4.0
+  image: bzon/jboss-eap:latest
   container_name: jboss
   environment:
    DEFAULT_CONTROLLER_HOST: "${DEFAULT_CONTROLLER_HOST}"
-   JAVA_OPTS: "${JBOSS_JAVA_OPTS}"
-   JBOSS_OPTS: "${JBOSS_OPTS}"
+   STANDALONE_SCRIPT_ARGS: "${STANDALONE_SCRIPT_ARGS}"
   ports:
    - "8443:8443"
-   - "8159:8159"
    - "8080:8080"
    - "9990:9990"
    - "9999:9999"

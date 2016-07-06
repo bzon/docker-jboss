@@ -1,3 +1,5 @@
 **/**/resources/*.zip
 **/**/resources/*.tar
-**/**/resources/*.tar.gz
+**/**/resources/*.gz
+**/**/resources/*.war
+**/**/resources/*.jar

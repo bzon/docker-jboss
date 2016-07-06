@@ -1,15 +1,13 @@
-# Set the base image to Fedora
 FROM bzon/jboss-jdk:1.7
 
-# File Author / Maintainer
 MAINTAINER "Bryan Sazon" "john.bryan.j.sazon@accenture.com"
 
 # Install EAP 6.4.0
 ADD resources/jboss-eap-6.4.0.zip /tmp/jboss-eap-6.4.0.zip
-ADD resources/jboss.sh /tmp/jboss.sh
+ADD resources/startup.sh /tmp/startup.sh
 RUN unzip /tmp/jboss-eap-6.4.0.zip && \
-    cp /tmp/jboss.sh /opt/jboss/ && \
-    chmod +x /opt/jboss/jboss.sh
+    cp /tmp/startup.sh /opt/jboss/ && \
+    chmod +x /opt/jboss/startup.sh
 
 # Set Environment
 ENV JBOSS_HOME /opt/jboss/jboss-eap-6.4
@@ -24,7 +22,7 @@ RUN echo "JAVA_OPTS=\"\$JAVA_OPTS -Djboss.bind.address=0.0.0.0 -Djboss.bind.addr
 EXPOSE 8080 9990 9999
 
 # Start EAP
-ENTRYPOINT ["/opt/jboss/jboss.sh"]
+ENTRYPOINT ["/opt/jboss/startup.sh"]
 
 # Clean up here
 USER root

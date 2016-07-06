@@ -1,0 +1,45 @@
+FROM bzon/jboss-eap-6.4:0.1.0
+
+MAINTAINER Bryan Sazon & Miguel Tanada
+
+
+ENV LIFERAY_HOME /opt/jboss
+
+
+# Copy Liferay installers
+COPY resources/liferay-portal-dependencies-6.2-ee-sp12.zip /tmp/
+COPY resources/ojdbc6.jar /tmp/
+COPY resources/liferay-portal-6.2-ee-sp12-20150804162203131.war /tmp/
+COPY resources/tomcat-juli.jar.zip /tmp/
+COPY resources/module.xml /tmp/
+COPY resources/jdk-module.xml /tmp/
+COPY resources/server.policy /tmp/
+COPY resources/standalone-ha.xml /tmp/
+COPY resources/portal-ext.properties /tmp/
+COPY resources/jboss.sh /tmp
+COPY resources/mysql-connector-java-5.1.39-bin.jar /tmp/
+
+# Install Liferay dependencies
+RUN mkdir -p $JBOSS_HOME/modules/com/liferay/portal/main && \
+    unzip /tmp/liferay-portal-dependencies-6.2-ee-sp12.zip -d /tmp && \
+    mv /tmp/liferay-portal-dependencies-6.2-ee-sp12/** $JBOSS_HOME/modules/com/liferay/portal/main && \
+    cp /tmp/mysql-connector-java-5.1.39-bin.jar $JBOSS_HOME/modules/com/liferay/portal/main &&\
+    cp /tmp/ojdbc6.jar $JBOSS_HOME/modules/com/liferay/portal/main && \
+    cp /tmp/module.xml $JBOSS_HOME/modules/com/liferay/portal/main && \
+    mkdir -p $JBOSS_HOME/modules/system/layers/base/sun/jdk/main/ && \
+    cp /tmp/jdk-module.xml $JBOSS_HOME/modules/system/layers/base/sun/jdk/main/ && \
+    cp /tmp/server.policy $JBOSS_HOME/bin/ && \
+    cp /tmp/standalone-ha.xml $JBOSS_HOME/standalone/configuration && \
+    mkdir -p $LIFERAY_HOME && \
+    cd $LIFERAY_HOME && \
+    unzip /tmp/liferay-portal-6.2-ee-sp12-20150804162203131.war && \
+    sed -i -e 's/<context-root>\/<\/context-root>/<context-root>\/nehrportal<\/context-root>/g' $LIFERAY_HOME/WEB-INF/jboss-web.xml && \
+    sed -i -e 's/<context-root>\/<\/context-root>/<context-root>\/nehrportal<\/context-root>/g' $LIFERAY_HOME/WEB-INF/jboss-web.xml.5 && \ 
+    cp /tmp/portal-ext.properties $LIFERAY_HOME && \
+    unzip /tmp/tomcat-juli.jar.zip && \
+    mv tomcat-juli.jar $LIFERAY_HOME/WEB-INF/lib/ && \
+    rm -f $LIFERAY_HOME/WEB-INF/lib/eclipselink.jar && \
+    jar -cvf ROOT.war * && \
+    mv ROOT.war $JBOSS_HOME/standalone/deployments/ && \
+    touch $JBOSS_HOME/standalone/deployments/ROOT.war.dodeploy
+

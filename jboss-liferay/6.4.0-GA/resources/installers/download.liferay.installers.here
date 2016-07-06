@@ -1,0 +1,7 @@
+Please put the following files in this directory..
+
+- liferay-portal-6.2-ee-sp12-20150804162203131.war
+- liferay-portal-dependencies-6.2-ee-sp12.zip
+- ojdbc6.jar
+- tomcat-juli.jar.zip
+- https://repo.maven.apache.org/maven2/com/liferay/com.liferay.registry.api/1.0.3/com.liferay.registry.api-1.0.3.jar
