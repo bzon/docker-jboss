@@ -1,8 +1,6 @@
 jboss:
   image: bzon/jboss-eap:6.4.0
   container_name: jboss
-  volumes:
-    - jboss_data:/opt/jboss
   environment:
    DEFAULT_CONTROLLER_HOST: "${DEFAULT_CONTROLLER_HOST}"
    JAVA_OPTS: "${JBOSS_JAVA_OPTS}"

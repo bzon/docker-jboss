@@ -11,9 +11,6 @@ RUN unzip /tmp/jboss-eap-6.4.0.zip && \
     cp /tmp/jboss.sh /opt/jboss/ && \
     chmod +x /opt/jboss/jboss.sh
 
-# Create volume to persist jboss data
-VOLUME /opt/jboss
-
 # Set Environment
 ENV JBOSS_HOME /opt/jboss/jboss-eap-6.4
 
