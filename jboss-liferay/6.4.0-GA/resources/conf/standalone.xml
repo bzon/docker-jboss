@@ -136,12 +136,12 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:datasources:1.2">
             <datasources>
-                <datasource jta="true" jndi-name="###LIFERAY_MYSQL_DS_JNDI###" pool-name="###LIFERAY_MYSQL_DS_POOL###" enabled="true" use-java-context="true" use-ccm="true">
-                    <connection-url>jdbc:mysql://###LIFERAY_MYSQL_HOST###:###LIFERAY_MYSQL_PORT###/###LIFERAY_MYSQL_DATABASE###</connection-url>
+                <datasource jta="true" jndi-name="###JBOSS_AS_MYSQL_DS_JNDI###" pool-name="###JBOSS_AS_MYSQL_DS_POOL###" enabled="true" use-java-context="true" use-ccm="true">
+                    <connection-url>jdbc:mysql://###JBOSS_AS_MYSQL_HOST###:###JBOSS_AS_MYSQL_PORT###/###JBOSS_AS_MYSQL_DATABASE###</connection-url>
                     <driver>mysql</driver>
                     <security>
-                        <user-name>###LIFERAY_MYSQL_USER###</user-name>
-                        <password>###LIFERAY_MYSQL_PASSWORD###</password>
+                        <user-name>###JBOSS_AS_MYSQL_USER###</user-name>
+                        <password>###JBOSS_AS_MYSQL_PASSWORD###</password>
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -163,7 +163,7 @@
             </datasources>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:1.1">
-            <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" deployment-timeout="###LIFERAY_DEPLOY_TIMEOUT###"/>
+            <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" deployment-timeout="###JBOSS_AS_DEPLOY_TIMEOUT###"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ee:1.2">
             <spec-descriptor-property-replacement>false</spec-descriptor-property-replacement>

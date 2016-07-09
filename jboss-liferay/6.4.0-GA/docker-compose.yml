@@ -1,0 +1,16 @@
+liferay:
+  image: bzon/jboss-liferay:6.2-ee-sp12
+  container_name: liferay
+  net: liferay-network
+  ports:
+   - "8080:8080"
+   - "9990:9990"
+   - "9999:9999"
+   - "8125:8125"
+   - "8443:8443"
+  environment:
+    JVM_XMX_SIZE: "2048m"
+    JVM_XMS_SIZE: "1024m"
+    PORTAL_EXT_ROOT_CONTEXT: "/liferay"
+
+   

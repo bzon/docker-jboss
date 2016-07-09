@@ -12,33 +12,54 @@ ARG liferay_module_dir=$JBOSS_HOME/modules/com/liferay/portal/main
 COPY resources/installers /tmp/installers
 COPY resources/conf /tmp/conf
 
-# Prepare Liferay dependencies and run time configuration
+# Install ifconfig
+RUN yum -y install net-tools; yum clean all
+
+# Configure liferay module
 RUN mkdir -p ${liferay_module_dir} && \
     cp /tmp/conf/com.liferay.portal.module.xml ${liferay_module_dir}/module.xml && \
     unzip /tmp/installers/${liferay_dependencies_version}.zip -d /tmp/ && \
     cp /tmp/${liferay_dependencies_version}/** ${liferay_module_dir}/ && \
-    cp /tmp/installers/${mysql_connector_jar} ${liferay_module_dir}/ && \
-    yes | cp /tmp/conf/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml && \
+    cp /tmp/installers/${mysql_connector_jar} ${liferay_module_dir}
+
+# Configure Jboss standalone startup configuration
+RUN yes | cp /tmp/conf/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml && \
     cp /tmp/conf/server.policy $JBOSS_HOME/bin/server.policy && \
     yes | cp /tmp/conf/standalone.conf $JBOSS_HOME/bin/standalone.conf
 
-# Clean up Step here -->
-RUN chown -R 1000:1000 /opt/jboss
-# --
+# Prepare liferay deployment
+RUN mkdir -p $JBOSS_HOME/standalone/deployments/ROOT.war && \
+    cd $JBOSS_HOME/standalone/deployments/ROOT.war; jar -xvf /tmp/installers/${liferay_war} && \
+    rm -fr $JBOSS_HOME/standalone/deployments/ROOT.war/WEB-INF/lib/eclipselink.jar && \
+    cp /tmp/conf/portal-ext.properties /opt/jboss/portal-ext.properties && \
+    cp /tmp/installers/tomcat-juli.jar $JBOSS_HOME/standalone/deployments/ROOT.war/WEB-INF/lib/ && \
+    touch $JBOSS_HOME/standalone/deployments/ROOT.war.dodeploy
+  
+# Clean up Step before switch user
+RUN chown -R 1000:1000 /opt/jboss && \
+    rm -fr /tmp/**
+
+VOLUME ["/opt/jboss"]
 
 # Switch back to jboss user
 USER jboss
 
-# Every variables starting with LIFERAY has a corresponding token in standalone.xml
-# e.g: LIFERAY_MYSQL_USER has a token of ###LIFERAY_MYSQL_USER### see resources/conf/standalone.xml for more info
-ENV LIFERAY_MYSQL_DS_JNDI="java:jboss/LiferayPool" \
-    LIFERAY_MYSQL_DS_POOL="LiferayPool" \
-    LIFERAY_MYSQL_HOST="liferay-mysql" \
-    LIFERAY_MYSQL_PORT="3306" \
-    LIFERAY_MYSQL_DATABASE="lportal" \
-    LIFERAY_MYSQL_USER="lportal" \
-    LIFERAY_MYSQL_PASSWORD="lportal" \
-    LIFERAY_DEPLOY_TIMEOUT="300"
+# Every variables starting with JBOSS_AS_ has a corresponding token in standalone.xml
+# e.g: JBOSS_AS_MYSQL_USER has a token of ###JBOSS_AS_MYSQL_USER### see resources/conf/standalone.xml for more info
+ENV JBOSS_AS_MYSQL_DS_JNDI="java:jboss/LiferayPool" \
+    JBOSS_AS_MYSQL_DS_POOL="LiferayPool" \
+    JBOSS_AS_MYSQL_HOST="liferay-mysql" \
+    JBOSS_AS_MYSQL_PORT="3306" \
+    JBOSS_AS_MYSQL_DATABASE="lportal" \
+    JBOSS_AS_MYSQL_USER="lportal" \
+    JBOSS_AS_MYSQL_PASSWORD="lportal" \
+    JBOSS_AS_DEPLOY_TIMEOUT="300"
+
+# Every variables starting with PORTAL_EXT_ has a corresponding token in portal-ext.properties
+# e.g: PORTAL_EXT_CONTEXT_ROOT has a token of ###PORTAL_EXT_CONTEXT_ROOT### see resources/conf/portal-ext.properties for more info
+ENV PORTAL_EXT_CONTEXT_ROOT="/liferay" \
+    PORTAL_EXT_DEFAULT_DS_JNDI="java:jboss/LiferayPool" \
+    PORTAL_EXT_AUTO_DEPLOY_DIR="/opt/jboss/deploy"
 
 # Set default environment variables for standalone.conf and standalone.sh
 ENV STANDALONE_SCRIPT_ARGS="-c standalone.xml" \
