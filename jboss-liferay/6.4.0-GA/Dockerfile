@@ -3,6 +3,7 @@ FROM bzon/jboss-eap:v6.4.0-ga
 # Switch to root, to have the permission to delete resources in /tmp and do stuffs that might requires sudo
 USER root
 
+# Set Docker build variables
 ARG liferay_dependencies_version=liferay-portal-dependencies-6.2-ee-sp12
 ARG liferay_war=liferay-portal-6.2-ee-sp12-20150804162203131.war
 ARG mysql_connector_jar=mysql-connector-java-5.1.39-bin.jar
@@ -23,7 +24,7 @@ RUN mkdir -p ${liferay_module_dir} && \
     cp /tmp/installers/${mysql_connector_jar} ${liferay_module_dir}
 
 # Configure Jboss standalone startup configuration
-RUN yes | cp /tmp/conf/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml && \
+RUN yes | cp /tmp/conf/standalone.xml.template $JBOSS_HOME/standalone/configuration/standalone.xml && \
     cp /tmp/conf/server.policy $JBOSS_HOME/bin/server.policy && \
     yes | cp /tmp/conf/standalone.conf $JBOSS_HOME/bin/standalone.conf
 
@@ -31,7 +32,7 @@ RUN yes | cp /tmp/conf/standalone.xml $JBOSS_HOME/standalone/configuration/stand
 RUN mkdir -p $JBOSS_HOME/standalone/deployments/ROOT.war && \
     cd $JBOSS_HOME/standalone/deployments/ROOT.war; jar -xvf /tmp/installers/${liferay_war} && \
     rm -fr $JBOSS_HOME/standalone/deployments/ROOT.war/WEB-INF/lib/eclipselink.jar && \
-    cp /tmp/conf/portal-ext.properties /opt/jboss/portal-ext.properties && \
+    cp /tmp/conf/portal-ext.properties.template /opt/jboss/portal-ext.properties && \
     cp /tmp/installers/tomcat-juli.jar $JBOSS_HOME/standalone/deployments/ROOT.war/WEB-INF/lib/ && \
     touch $JBOSS_HOME/standalone/deployments/ROOT.war.dodeploy
   

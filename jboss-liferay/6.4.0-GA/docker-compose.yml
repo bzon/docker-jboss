@@ -1,5 +1,6 @@
 liferay:
   image: bzon/jboss-liferay:6.2-ee-sp12
+#  image: test-image:latest
   container_name: liferay
   net: liferay-network
   ports:
