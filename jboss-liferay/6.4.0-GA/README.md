@@ -20,9 +20,9 @@ tomcat-juli.jar | http://www.java2s.com/Code/Jar/t/Downloadtomcatjulijar.htm
 
 Configuration File | Description
 ------------ | -------------
-entrypoint.sh | com.mysqlThis is the script that orchestrates how the container will launch upon `docker run`
-portal-ext.properties | com.mysqlThe tokenise template of portal-ext.properties.
-server.policy | com.mysqlThe Jboss policy permission file.
-standalone.conf | com.mysqlJboss standalone.sh startup script's configuration for JAVA_OPTS.
-standalone.xml | com.mysqlThe tokenise template of Jboss standalone.sh configuration where Datasource and Liferay related stuffs are placed. This is passed as `-c standalone.xml` upon container launch by default.
-com.liferay.portal.module.xml | com.mysqlThe module.xml file that corresponds with the Liferay dependencies from the Requirements table.
+entrypoint.sh | Entrypoint script that orchestrates how the container will launch upon `docker run`
+portal-ext.properties.template | A tokenised template of portal-ext.properties for Liferay related configurations.
+server.policy | Jboss policy permission file.
+standalone.conf | Jboss standalone.sh startup script's configuration for JAVA_OPTS.
+standalone.xml.template | A tokenised template of Jboss standalone.sh configuration where Datasource and Liferay related stuffs are placed. This is passed as `-c standalone.xml` upon container launch by default.
+com.liferay.portal.module.xml | Liferay dependencies module.xml file that corresponds with the Liferay dependencies from the Requirements table.
