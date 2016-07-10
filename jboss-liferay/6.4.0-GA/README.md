@@ -52,21 +52,41 @@ If successful, access the page again and you should now be able to proceed with 
   
 # Building your own Docker Image
 
+The Dockerfile was based from following this [Liferay installation guide for Liferay 6.2 on Jboss 7 AS] (https://dev.liferay.com/discover/deployment/-/knowledge_base/6-2/installing-liferay-on-jboss-7-1).  
+
 This image will be built on top of a base Jboss image `bzon/jboss-eap:6.4.0-ga` from Docker hub. For more information about this build, please see [My Jboss EAP 6.4.0 Docker Project](https://github.com/bzon/docker-jboss/tree/master/jboss-eap-6.4).
 
 ##### Requirements
 
-The following resources should be placed according to its Location from the table below. All of the artifacts should be present under the `resources/installers` directory.  
+Directory and Files tree.
+
+```bash
+Dockerfile
+resources/
+|__instalers/
+   |__ liferay-portal-6.2-ee-sp12-20150804162203131.war
+   |__ liferay-portal-dependencies-6.2-ee-sp12.zip
+   |__ mysql-connector-java-5.1.39-bin.jar
+   |__ tomcat-juli.jar
+|__conf/
+   |__ entrypoint.sh
+   |__ portal-ext.properties.template
+   |__ server.policy
+   |__ standalone.conf
+   |__ standalone.xml.template
+   |__ com.liferay.portal.module.xml
+```
+
+The following resources should be placed according to its Location from the table below. All of the artifacts should be present under the `resources/installers` directory.
 
 Artifact | Download from
 ------------ | -------------
 liferay-portal-6.2-ee-sp12-20150804162203131.war | Liferay Subscription
 liferay-portal-dependencies-6.2-ee-sp12.zip | Liferay Subscription
 mysql-connector-java-5.1.39-bin.jar | http://dev.mysql.com/downloads/connector/j/
-tomcat-juli.jar | http://www.java2s.com/Code/Jar/t/Downloadtomcatjulijar.htm
+tomcat-juli.jar (optional) | http://www.java2s.com/Code/Jar/t/Downloadtomcatjulijar.htm
   
-  
-##### Understanding the Liferay and Jboss Configuration files of this build
+##### Liferay and Jboss Configuration files of this build
 
 Configuration File | Description
 ------------ | -------------
