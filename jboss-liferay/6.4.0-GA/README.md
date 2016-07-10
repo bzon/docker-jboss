@@ -1,23 +1,30 @@
 # Quick Start Guide
 
-Create a docker bridge network using 
-```docker network create liferay-network```
+##### Using Docker basic commands  
 
-##### Deploy MySQL
-```bash
-docker run -d --net=liferay-network \
+  - Create a docker bridge network:
+    
+     ```bash
+     docker network create liferay-network
+     ```
+  - Deploy MySQL:
+
+    ```bash
+    docker run -d --net=liferay-network \
            --name=liferay-mysql \
            -p 3306:3306 \
            -e MYSQL_ROOT_PASSWORD=root \
            -e MYSQL_USER=lportal \
            -e MYSQL_PASSWORD=lportal \
            -e MYSQL_DATABASE=lportal -d mysql:5.7
-```
-##### Deploy Liferay
-Increase the JVM_XMX_SIZE and JVM_XMS_SIZE depending according to your system preference.
+    ```
+    
+  - Deploy Liferay:
 
-```bash
-docker run -d --net=liferay-network \
+    Increase the JVM_XMX_SIZE and JVM_XMS_SIZE depending according to your system preference.
+
+    ```bash
+    docker run -d --net=liferay-network \
               --name=liferay \
               -p 8080:8080 \
               -p 9990:9990 \
@@ -25,28 +32,45 @@ docker run -d --net=liferay-network \
               -e JVM_XMX_SIZE="2048m" \
               -e JVM_XMS_SIZE="1024m" \
               bzon/jboss-liferay:6.2-ee-sp12
-```
+     ```
+##### Using Docker Compose command  
 
-Access the Jboss Liferay application: *http://localhost:8080/liferay*  
-Access the Jboss Management console: *http://localhost:9990/console*  
-Management console user: *admin*  
-Management console password: *admin123!*  
+From the project workspace parent directory. Do the following:
+
+  - Run:
+ 
+      ```bash
+      docker-compose up -d
+      ```
+  - Observe the logs:
+ 
+     ```bash
+     docker-compose logs -f
+     ```
+
+##### Your Access Information
+Description | Value
+------------ | -------------
+Liferay Application URL | *http://localhost:8080/liferay*  
+Jboss Management Console | *http://localhost:9990/console*  
+Jboss Administrator | *admin*  
+Jboss Administrator Password | *admin123!*  
 
 The page should display some Licensing issue and that you'll need to enter your Order ID.
 
 ##### Enabling License
 
-Copy your license file inside the running Liferay container.
+  - Copy your license file inside the running Liferay container:
 
-```bash
-docker cp LiferayTrial_x_x.li liferay:/opt/jboss/deploy/
-```
+    ```bash
+    docker cp LiferayTrial_x_x.li liferay:/opt/jboss/deploy/
+    ```
 
-Then watch the license gets deployed.
+  - Observe the logs:
 
-```bash
-docker logs -f liferay
-``` 
+   ```bash
+   docker logs -f liferay
+   ``` 
 
 If successful, access the page again and you should now be able to proceed with the Liferay Wizard.  
   
