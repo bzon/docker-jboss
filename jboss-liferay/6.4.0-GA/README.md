@@ -1,6 +1,4 @@
-# General Usage
-
-### Quick Start Guide
+# Quick Start Guide
 
 Create a docker bridge network using 
 ```docker network create liferay-network```
@@ -50,9 +48,9 @@ Then watch the license gets deployed.
 docker logs -f liferay
 ``` 
 
-If successful, access the page again and you should now be able to proceed with the Liferay Wizard.
-
-### Building your own Docker Image
+If successful, access the page again and you should now be able to proceed with the Liferay Wizard.  
+  
+# Building your own Docker Image
 
 This image will be built on top of a base Jboss image `bzon/jboss-eap:6.4.0-ga` from Docker hub. For more information about this build, please see [My Jboss EAP 6.4.0 Docker Project](https://github.com/bzon/docker-jboss/tree/master/jboss-eap-6.4)
 
