@@ -52,11 +52,11 @@ If successful, access the page again and you should now be able to proceed with 
   
 # Building your own Docker Image
 
-This image will be built on top of a base Jboss image `bzon/jboss-eap:6.4.0-ga` from Docker hub. For more information about this build, please see [My Jboss EAP 6.4.0 Docker Project](https://github.com/bzon/docker-jboss/tree/master/jboss-eap-6.4)
+This image will be built on top of a base Jboss image `bzon/jboss-eap:6.4.0-ga` from Docker hub. For more information about this build, please see [My Jboss EAP 6.4.0 Docker Project](https://github.com/bzon/docker-jboss/tree/master/jboss-eap-6.4).
 
 ##### Requirements
 
-The following resources should be placed according to its Location from the table below. All of the artifacts should be present under the `resources/installers` directory
+The following resources should be placed according to its Location from the table below. All of the artifacts should be present under the `resources/installers` directory.  
 
 Artifact | Download from
 ------------ | -------------
