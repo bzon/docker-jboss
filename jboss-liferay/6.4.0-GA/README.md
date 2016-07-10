@@ -2,7 +2,6 @@
 
 ### Quick Start Guide
 
-#### Deploy the Containers
 Create a docker bridge network using 
 ```docker network create liferay-network```
 
@@ -30,16 +29,28 @@ docker run -d --net=liferay-network \
               bzon/jboss-liferay:6.2-ee-sp12
 ```
 
-Access the host from your web browser: `http://localhost:8080/liferay`
+Access the Jboss Liferay application: *http://localhost:8080/liferay*  
+Access the Jboss Management console: *http://localhost:9990/console*  
+Management console user: *admin*  
+Management console password: *admin123!*  
 
-The page should display that you need to enter your Trial License.
+The page should display some Licensing issue and that you'll need to enter your Order ID.
 
 ##### Enabling License
-`docker cp LiferayTrial_x_x.li liferay:/opt/jboss/deploy/`
 
-Then watch the license gets deployed using `docker logs` 
+Copy your license file inside the running Liferay container.
 
-Access the page again and you should now be able to proceed with the Liferay Wizard.
+```bash
+docker cp LiferayTrial_x_x.li liferay:/opt/jboss/deploy/
+```
+
+Then watch the license gets deployed.
+
+```bash
+docker logs -f liferay
+``` 
+
+If successful, access the page again and you should now be able to proceed with the Liferay Wizard.
 
 ### Building your own Docker Image
 
