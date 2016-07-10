@@ -1,17 +1,37 @@
-liferay:
-  image: bzon/jboss-liferay:6.2-ee-sp12
-#  image: test-image:latest
-  container_name: liferay
-  net: liferay-network
-  ports:
-   - "8080:8080"
-   - "9990:9990"
-   - "9999:9999"
-   - "8125:8125"
-   - "8443:8443"
-  environment:
-    JVM_XMX_SIZE: "2048m"
-    JVM_XMS_SIZE: "1024m"
-    PORTAL_EXT_ROOT_CONTEXT: "/liferay"
+version: '2'
 
-   
+networks:
+  my-network:
+    driver: bridge
+
+services:
+  application:
+    image: bzon/jboss-liferay:6.2-ee-sp12
+    container_name: liferay
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+      - "9999:9999"
+      - "8125:8125"
+      - "8443:8443"
+    environment:
+      JVM_XMX_SIZE: "6144m"
+      JVM_XMS_SIZE: "6144m"
+      PORTAL_EXT_ROOT_CONTEXT: "/liferay"
+    networks:
+      - my-network
+
+  database:
+    image: mysql:5.7
+    container_name: liferay-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "lportal"
+      MYSQL_PASSWORD: "lportal"
+      MYSQL_DATABASE: "lportal"
+    ports:
+      - "3306:3306"
+    networks:
+      - my-network
