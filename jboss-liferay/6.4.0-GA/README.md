@@ -21,7 +21,7 @@
     
   - Deploy Liferay:
 
-    Increase the JVM_XMX_SIZE and JVM_XMS_SIZE depending according to your system preference.
+    Increase the JVM_XMX_SIZE and JVM_XMS_SIZE to your preference.
 
     ```bash
     docker run -d --net=liferay-network \
