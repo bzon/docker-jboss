@@ -1,16 +1,12 @@
-#### General Usage
-`docker-compose -f mysql-compose/default.yml up -d`
+# Build Guide
 
-`docker-compose up -d`
+### Requirements
 
-Access the host from your web browser: `http://localhost:8080/liferay`
+The following resources should be placed according to its Location from the table below.
 
-The page should display that you need to enter your Trial License.
-
-#### Enabling License
-`docker cp LiferayTrial_x_x.li liferay:/opt/jboss/deploy/`
-
-Then watch the license gets deployed using `docker logs` 
-
-Access the page again and you should now be able to proceed with the Liferay Wizard.
-
+Resources | Location | Download from
+------------ | ------------- | -------------
+liferay-portal-6.2-ee-sp12-20150804162203131.war | resources/installers | Liferay Subscription
+liferay-portal-dependencies-6.2-ee-sp12.zip | resources/installers | Liferay Subscription
+mysql-connector-java-5.1.39-bin.jar | resources/installers | http://dev.mysql.com/downloads/connector/j/
+tomcat-juli.jar | resources/installers | http://www.java2s.com/Code/Jar/t/Downloadtomcatjulijar.htm
