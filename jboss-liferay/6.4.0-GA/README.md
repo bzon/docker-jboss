@@ -33,6 +33,7 @@
               -e JVM_XMS_SIZE="1024m" \
               bzon/jboss-liferay:6.2-ee-sp12
      ```
+
 ##### Using Docker Compose command  
 
 From the project workspace parent directory. Do the following:
