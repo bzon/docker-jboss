@@ -42,6 +42,7 @@ fi
 
 # If `docker run` received no additional arguments, then run jboss startup script.
 if [[ $# -lt 1 ]]; then
+  /wait-for-it.sh ${JBOSS_AS_MYSQL_HOST}:${JBOSS_AS_MYSQL_PORT} --timeout=60 --strict  -- echo "MySQL Database is ready for use!"
   /opt/jboss/startup.sh
 fi
 

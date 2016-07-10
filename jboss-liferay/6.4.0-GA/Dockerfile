@@ -74,4 +74,6 @@ ENV STANDALONE_SCRIPT_ARGS="-c standalone.xml" \
 EXPOSE 8443 8080 9990 9999 8125
 
 COPY resources/entrypoint.sh /entrypoint.sh
+COPY resources/wait-for-it.sh /wait-for-it.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
