@@ -32,12 +32,12 @@ Your *Subscription license file* for Liferay Enterprise e.g *your_license_file.x
               --name=liferay \
               -p 8080:8080 \
               -p 9990:9990 \
+              -e JVM_XMX_SIZE="4096m" \
+              -e JVM_XMS_SIZE="2048m" \
               -e PORTAL_EXT_CONTEXT_ROOT="/liferay" \
               -e JBOSS_AS_MYSQL_USER="lportal" \
               -e JBOSS_AS_MYSQL_PASSWORD="lportal" \
               -e JBOSS_AS_MYSQL_DATABASE="lportal_db" \
-              -e JVM_XMX_SIZE="2048m" \
-              -e JVM_XMS_SIZE="1024m" \
               bzon/jboss-liferay:6.2-ee-sp12
      ```
 
