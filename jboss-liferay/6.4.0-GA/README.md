@@ -1,6 +1,10 @@
 # Quick Start Guide
 
-##### Using Docker basic commands  
+## Requirement  
+
+Your *Subscription license file* for Liferay Enterprise e.g *your_license_file.xml*. Without this you will not be able to proceed with the Liferay startup wizard.
+
+## Using Docker basic commands  
 
   - Create a docker bridge network:
     
@@ -37,7 +41,7 @@
               bzon/jboss-liferay:6.2-ee-sp12
      ```
 
-##### Using Docker Compose command  
+## Using Docker Compose command  
 
 From the project workspace parent directory. Do the following:
 
@@ -52,7 +56,7 @@ From the project workspace parent directory. Do the following:
      docker-compose logs
      ```
 
-##### Your Access Information  
+## Your Access Information  
 
 Description | Value
 ------------ | -------------
@@ -63,12 +67,13 @@ Jboss Administrator Password | *admin123!*
 
 The page should display some Licensing issue and that you'll need to enter your Order ID.
 
-##### Enabling License
+## Enabling License
 
   - Copy your license file inside the running Liferay container:
 
     ```bash
-    docker cp LiferayTrial_x_x.li liferay:/opt/jboss/deploy/
+    docker cp your_license_file.xml liferay:/tmp/
+    docker 
     ```
 
   - Observe the logs:
