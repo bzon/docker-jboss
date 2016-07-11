@@ -72,7 +72,13 @@ The page should display some Licensing issue and that you'll need to enter your 
   - Copy your license file inside the running Liferay container:
 
     ```bash
+    # **docker cp** will copy the license.xml as root by default
     docker cp license.xml liferay:/tmp/
+    ```
+  
+  - Transfer the license file to the deploy directory as jboss user:
+  - 
+    ```bash
     docker exec -it liferay cp /tmp/license.xml /opt/jboss/deploy/ 
     ```
 
