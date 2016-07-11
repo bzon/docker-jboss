@@ -122,11 +122,11 @@ resources/
    |__ com.liferay.portal.module.xml
 ```
 
+## Artifacts 
+
 All of the artifacts in this table should be present under the `resources/installers` directory.
 
-## Requirements 
-
-Artifact | Download from
+Artifact | Download Source
 ------------ | -------------
 liferay-portal-6.2-ee-sp12-20150804162203131.war | Liferay Subscription
 liferay-portal-dependencies-6.2-ee-sp12.zip | Liferay Subscription
