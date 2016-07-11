@@ -17,9 +17,9 @@ services:
       - "8125:8125"
       - "8443:8443"
     environment:
-      JVM_XMX_SIZE: "2048m"
-      JVM_XMS_SIZE: "1024m"
-      PORTAL_EXT_ROOT_CONTEXT: "/liferay"
+      JVM_XMX_SIZE: "6188m"
+      JVM_XMS_SIZE: "6188m"
+      PORTAL_EXT_CONTEXT_ROOT: "/liferay"
     networks:
       - my-network
 
