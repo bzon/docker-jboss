@@ -2,7 +2,7 @@
 
 ## Requirement  
 
-Your *Subscription license file* for Liferay Enterprise e.g *your_license_file.xml*. Without this you will not be able to proceed with the Liferay startup wizard.
+Your *Subscription license file* for Liferay Enterprise 6.2 e.g *your_license_file.xml*. Without this you will not be able to proceed with the Liferay startup wizard.
 
 ## Using Docker basic commands  
 
@@ -72,15 +72,19 @@ The page should display some Licensing issue and that you'll need to enter your 
   - Copy your license file inside the running Liferay container:
 
     ```bash
-    docker cp your_license_file.xml liferay:/tmp/
-    docker 
+    docker cp license.xml liferay:/tmp/
+    docker exec -it liferay cp /tmp/license.xml /opt/jboss/deploy/ 
     ```
 
-  - Observe the logs:
-
-   ```bash
-   docker logs -f liferay
-   ``` 
+  - Observe the logs to see that the license file has been deployed successfully.
+  
+    ```bash
+    docker exec -it liferay cat  /opt/jboss/logs/liferay.$(date +%Y-%m-%d).log
+    16:36:45,270 INFO  [com.liferay.portal.kernel.deploy.auto.AutoDeployScanner][AutoDeployDir:204] Processing license.xml
+    16:36:45,276 INFO  [com.liferay.portal.kernel.deploy.auto.AutoDeployScanner][LicenseAutoDeployListener:?] Copying license for /opt/jboss/deploy/license.xml
+    16:36:45,308 INFO  [com.liferay.portal.kernel.deploy.auto.AutoDeployScanner][LicenseManager:?] Portal Development license validation passed
+    16:36:45,308 INFO  [com.liferay.portal.kernel.deploy.auto.AutoDeployScanner][LicenseDeployer:?] License registered
+    ``` 
 
 If successful, access the page again and you should now be able to proceed with the Liferay Wizard.  
   
