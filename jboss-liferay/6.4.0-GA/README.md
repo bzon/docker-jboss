@@ -13,10 +13,10 @@
     docker run -d --net=liferay-network \
            --name=liferay-mysql \
            -p 3306:3306 \
-           -e MYSQL_ROOT_PASSWORD=root \
-           -e MYSQL_USER=lportal \
-           -e MYSQL_PASSWORD=lportal \
-           -e MYSQL_DATABASE=lportal -d mysql:5.7
+           -e MYSQL_ROOT_PASSWORD="root" \
+           -e MYSQL_USER="lportal" \
+           -e MYSQL_PASSWORD="lportal" \
+           -e MYSQL_DATABASE="lportal_db" -d mysql:5.7
     ```
     
   - Deploy Liferay:
@@ -29,6 +29,9 @@
               -p 8080:8080 \
               -p 9990:9990 \
               -e PORTAL_EXT_CONTEXT_ROOT="/liferay" \
+              -e JBOSS_AS_MYSQL_USER="lportal" \
+              -e JBOSS_AS_MYSQL_PASSWORD="lportal" \
+              -e JBOSS_AS_MYSQL_DATABASE="lportal_db" \
               -e JVM_XMX_SIZE="2048m" \
               -e JVM_XMS_SIZE="1024m" \
               bzon/jboss-liferay:6.2-ee-sp12
@@ -46,10 +49,11 @@ From the project workspace parent directory. Do the following:
   - Observe the logs:
  
      ```bash
-     docker-compose logs -f
+     docker-compose logs
      ```
 
-##### Your Access Information
+##### Your Access Information  
+
 Description | Value
 ------------ | -------------
 Liferay Application URL | *http://localhost:8080/liferay*  
@@ -88,13 +92,14 @@ Directory and Files tree.
 ```bash
 Dockerfile
 resources/
+|__entrypoint.sh
+|__wait-for-it.sh
 |__instalers/
    |__ liferay-portal-6.2-ee-sp12-20150804162203131.war
    |__ liferay-portal-dependencies-6.2-ee-sp12.zip
    |__ mysql-connector-java-5.1.39-bin.jar
    |__ tomcat-juli.jar
 |__conf/
-   |__ entrypoint.sh
    |__ portal-ext.properties.template
    |__ server.policy
    |__ standalone.conf
