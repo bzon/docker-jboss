@@ -100,7 +100,7 @@ The Dockerfile was based from following this [Liferay installation guide for Lif
 
 This image will be built on top of a base Jboss image `bzon/jboss-eap:6.4.0-ga` from Docker hub. For more information about this build, please see [My Jboss EAP 6.4.0 Docker Project](https://github.com/bzon/docker-jboss/tree/master/jboss-eap-6.4).
 
-##### Requirements
+## Requirements
 
 Directory and Files tree.
 
@@ -122,7 +122,9 @@ resources/
    |__ com.liferay.portal.module.xml
 ```
 
-The following resources should be placed according to its Location from the table below. All of the artifacts should be present under the `resources/installers` directory.
+All of the artifacts in this table should be present under the `resources/installers` directory.
+
+## Requirements 
 
 Artifact | Download from
 ------------ | -------------
@@ -131,7 +133,7 @@ liferay-portal-dependencies-6.2-ee-sp12.zip | Liferay Subscription
 mysql-connector-java-5.1.39-bin.jar | http://dev.mysql.com/downloads/connector/j/
 tomcat-juli.jar (optional) | http://www.java2s.com/Code/Jar/t/Downloadtomcatjulijar.htm
   
-##### Liferay and Jboss Configuration files of this build
+## Liferay and Jboss Configuration
 
 Configuration File | Description
 ------------ | -------------
