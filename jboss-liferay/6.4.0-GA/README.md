@@ -67,6 +67,8 @@ Jboss Administrator Password | *admin123!*
 
 The page should display some Licensing issue and that you'll need to enter your Order ID.
 
+![LiferayHome](https://raw.githubusercontent.com/bzon/docker-jboss/master/jboss-liferay/6.4.0-GA/img/no-license.png)
+
 ## Enabling License
 
   - Copy your license file inside the running Liferay container:
@@ -93,7 +95,9 @@ The page should display some Licensing issue and that you'll need to enter your 
     ``` 
 
 If successful, access the page again and you should now be able to proceed with the Liferay Wizard.  
-  
+
+![LiferayHome](https://raw.githubusercontent.com/bzon/docker-jboss/master/jboss-liferay/6.4.0-GA/img/with-license.png)
+
 # Building your own Docker Image
 
 The Dockerfile was based from following this [Liferay installation guide for Liferay 6.2 on Jboss 7 AS] (https://dev.liferay.com/discover/deployment/-/knowledge_base/6-2/installing-liferay-on-jboss-7-1).  
